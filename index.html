@@ -1,0 +1,706 @@
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>食谱大转盘</title>
+
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+
+    <style>
+        * {
+            /* 重置默认样式 */
+
+            margin: 0;
+
+            padding: 0;
+
+            border: none;
+
+            outline: none;
+
+            user-select: none;
+
+        }
+
+        .wrapper {
+
+            position: relative;
+
+            height: 200px;
+
+            width: 200px;
+
+            padding: 20px;
+
+            margin: 20px;
+
+            background-color: #ff5555;
+
+            box-shadow: #000000 0px 0px 10px;
+
+            border-radius: 50%;
+
+            margin: 100px auto 50px;
+
+        }
+
+        .light {
+
+            position: absolute;
+
+            height: 10px;
+
+            width: 10px;
+
+            border-radius: 50%;
+
+            top: 5px;
+
+            left: 115px;
+
+            transform-origin: 5px 115px;
+
+        }
+
+        .light-twinkling {
+
+            animation: 1s twinkling 3, 100ms 3s twinkling 3;
+
+        }
+
+        .light:nth-child(2n) {
+
+            background-color: #fafce7;
+
+        }
+
+        .light:nth-child(2n+1) {
+
+            background-color: #ffe58b;
+
+        }
+
+        .light:nth-child(2) {
+
+            transform: rotate(36deg);
+
+        }
+
+        .light:nth-child(3) {
+
+            transform: rotate(72deg);
+
+        }
+
+        .light:nth-child(4) {
+
+            transform: rotate(108deg);
+
+        }
+
+        .light:nth-child(5) {
+
+            transform: rotate(144deg);
+
+        }
+
+        .light:nth-child(6) {
+
+            transform: rotate(180deg);
+
+        }
+
+        .light:nth-child(7) {
+
+            transform: rotate(216deg);
+
+        }
+
+        .light:nth-child(8) {
+
+            transform: rotate(252deg);
+
+        }
+
+        .light:nth-child(9) {
+
+            transform: rotate(288deg);
+
+        }
+
+        .light:nth-child(10) {
+
+            transform: rotate(324deg);
+
+        }
+
+
+        .panel {
+
+            position: relative;
+
+            height: 200px;
+
+            width: 200px;
+
+            background-color: #b7b7b7;
+
+            border-radius: 100px;
+
+        }
+
+        .sector {
+
+            position: absolute;
+
+            left: 100px;
+
+            top: 0px;
+
+            width: 100px;
+
+            height: 200px;
+
+            font-size: 14px;
+
+            border-radius: 0px 100px 100px 0;
+
+            overflow: hidden;
+
+            transform-origin: left center;
+
+        }
+
+        .sector:nth-child(1) {
+
+            transform: rotate(-18deg);
+
+        }
+
+        .sector:nth-child(2) {
+
+            transform: rotate(2deg);
+
+        }
+
+        .sector:nth-child(3) {
+
+            transform: rotate(22deg);
+
+        }
+
+        .sector:nth-child(4) {
+
+            transform: rotate(42deg);
+
+        }
+
+        .sector:nth-child(5) {
+
+            transform: rotate(62deg);
+
+        }
+
+        .sector:nth-child(6) {
+
+            transform: rotate(82deg);
+
+        }
+
+        .sector:nth-child(7) {
+
+            transform: rotate(102deg);
+
+        }
+
+        .sector:nth-child(8) {
+
+            transform: rotate(122deg);
+
+        }
+
+        .sector:nth-child(9) {
+
+            transform: rotate(142deg);
+
+        }
+
+        .sector:nth-child(10) {
+
+            transform: rotate(162deg);
+
+        }
+
+        .sector:nth-child(11) {
+
+            transform: rotate(182deg);
+
+        }
+
+        .sector:nth-child(12) {
+
+            transform: rotate(202deg);
+
+        }
+
+        .sector:nth-child(13) {
+
+            transform: rotate(222deg);
+
+        }
+
+        .sector:nth-child(14) {
+
+            transform: rotate(242deg);
+
+        }
+
+        .sector:nth-child(15) {
+
+            transform: rotate(262deg);
+
+        }
+
+        .sector:nth-child(16) {
+
+            transform: rotate(282deg);
+
+        }
+
+        .sector:nth-child(17) {
+
+            transform: rotate(302deg);
+
+        }
+
+        .sector:nth-child(18) {
+
+            transform: rotate(322deg);
+
+        }
+
+        .sector:nth-child(2n+1) .sector-inner {
+
+            background: #fef6e0;
+
+        }
+
+        .sector:nth-child(2n) .sector-inner {
+
+            background: #ffffff;
+
+        }
+
+        .sector-inner {
+
+            text-align: center;
+
+            display: block;
+
+            width: 40px;
+
+            padding: 5px 3px 0 57px;
+
+            height: 195px;
+
+            transform: translateX(-100px) rotate(20deg);
+
+            transform-origin: right center;
+
+            border-radius: 100px 0 0 100px;
+
+        }
+
+        .sector-inner span {
+            /* padding-top: 10px; */
+            transform-origin: center;
+            transform: rotate(-9deg);
+            margin-left: 19px;
+            writing-mode: vertical-rl;
+            font-size: 10px;
+            color: #d46854;
+
+        }
+
+        .pointer {
+
+            position: absolute;
+
+            left: 79px;
+
+            top: 79px;
+
+            z-index: 10;
+
+            height: 30px;
+
+            width: 30px;
+
+            padding: 6px;
+
+            color: #fff899;
+
+            line-height: 15px;
+
+            font-size: 12px;
+
+            text-align: center;
+
+            background-color: #FE4848;
+
+            border-radius: 50%;
+
+            border: 1px solid #FE4848;
+
+            transition: transform 3s cubic-bezier(.2, .93, .43, 1);
+
+        }
+
+        .pointer::after {
+
+            content: '';
+
+            position: absolute;
+
+            left: 14px;
+
+            top: -24px;
+
+            border-width: 12px 6px;
+
+            border-style: solid;
+
+            border-color: transparent;
+
+            border-bottom-color: #FE4848;
+
+            transform-origin: center;
+
+        }
+
+        .result {
+            text-align: center;
+            font-size: 20px;
+            margin-top: 20px;
+            font-family: STCaiyun;
+
+        }
+
+        @keyframes twinkling {
+
+            50% {
+                background: transparent;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="result"></div>
+
+    <div class="wrapper">
+
+        <div class="light"></div>
+
+        <div class="light"></div>
+
+        <div class="light"></div>
+
+        <div class="light"></div>
+
+        <div class="light"></div>
+
+        <div class="light"></div>
+
+        <div class="light"></div>
+
+        <div class="light"></div>
+
+        <div class="light"></div>
+
+        <div class="light"></div>
+
+        <div class="panel">
+
+            <div class="sector">
+
+                <div class="sector-inner">
+
+                    <span>安徽板面</span>
+
+                </div>
+
+            </div>
+
+            <div class="sector">
+
+                <div class="sector-inner">
+
+                    <span>西红柿面</span>
+
+                </div>
+
+            </div>
+
+            <div class="sector">
+
+                <div class="sector-inner">
+
+                    <span>快餐</span>
+
+                </div>
+
+            </div>
+
+            <div class="sector">
+
+                <div class="sector-inner">
+
+                    <span>猪肚鸡</span>
+
+                </div>
+
+            </div>
+
+            <div class="sector">
+
+                <div class="sector-inner">
+
+                    <span>烤鸭饭</span>
+
+                </div>
+
+            </div>
+
+            <div class="sector">
+
+                <div class="sector-inner">
+
+                    <span>掉渣饼</span>
+
+                </div>
+
+            </div>
+
+            <div class="sector">
+
+                <div class="sector-inner">
+
+                    <span>饺子</span>
+
+                </div>
+
+            </div>
+
+            <div class="sector">
+
+                <div class="sector-inner">
+
+                    <span>混沌</span>
+
+                </div>
+
+            </div>
+
+            <div class="sector">
+
+                <div class="sector-inner">
+
+                    <span>凉皮</span>
+
+                </div>
+
+            </div>
+
+            <div class="sector">
+
+                <div class="sector-inner">
+
+                    <span>肉夹馍</span>
+
+                </div>
+
+            </div>
+
+            <div class="sector">
+
+                <div class="sector-inner">
+
+                    <span>清汤面</span>
+
+                </div>
+
+            </div>
+
+            <div class="sector">
+
+                <div class="sector-inner">
+
+                    <span>鸭血粉丝汤</span>
+
+                </div>
+
+            </div>
+            <div class="sector">
+
+                <div class="sector-inner">
+
+                    <span>牛肉汤</span>
+
+                </div>
+
+            </div>
+            <div class="sector">
+
+                <div class="sector-inner">
+
+                    <span>水煮鱼</span>
+
+                </div>
+
+            </div>
+            <div class="sector">
+
+                <div class="sector-inner">
+
+                    <span>番茄米线</span>
+
+                </div>
+
+            </div>
+
+            <div class="sector">
+
+                <div class="sector-inner">
+
+                    <span>葱油拌面</span>
+
+                </div>
+
+            </div>
+
+            <div class="sector">
+
+                <div class="sector-inner">
+
+                    <span>石锅拌饭</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="sector">
+
+                <div class="sector-inner">
+
+                    <span>吃屁</span>
+
+                </div>
+
+            </div>
+
+            <div class="pointer">开始干饭</div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+        let getEle = document.getElementsByClassName.bind(document);
+
+        let pointer = getEle('pointer')[0];
+
+        let result = getEle('result')[0];
+
+        let lights = Array.prototype.slice.call(getEle('light'));
+
+        let onRotation = false; // 记录当前是否正在旋转，如果正在旋转，就不能继续点击了
+
+        let reward = ['安徽板面', '西红柿面', '快餐', '猪肚鸡', '烤鸭饭',
+            '掉渣饼', '饺子', '混沌', '凉皮', '肉夹馍', '清汤面', '鸭血粉丝汤',
+            '牛肉汤', '水煮鱼', '番茄米线', '葱油拌面','石锅拌饭', '吃屁'
+        ];
+
+        // 根据随机角度获取奖励
+
+        let getReward = (function () {
+
+            currentDeg = 0;
+
+            return function () {
+
+                // 转三圈到四圈
+
+                let id = Math.random() //这里是中奖ID 可以通过接口返回 取值为0.1 - 10 返回值需要做处理  例：返回3则处理为 id = 3 / 10
+
+                let rotateDeg = id * 360 + 1080;
+
+                currentDeg += rotateDeg;
+
+                let rewardText = reward[Math.floor((currentDeg + 18) % 360 / 20)]
+
+                return {
+
+                    deg: currentDeg,
+
+                    text: rewardText === '谢谢参与' ? '很遗憾，您没有获得奖品。' : rewardText
+
+                }
+
+            }
+
+        })();
+
+        pointer.addEventListener('click', () => {
+
+            if (onRotation) return;
+
+            console.log('开始抽奖');
+
+            onRotation = true;
+
+            lights.forEach(light => {
+                light.className += ' light-twinkling';
+            });
+
+            let nextStatus = getReward();
+
+            console.log(nextStatus)
+
+            result.innerText = nextStatus.text;
+            
+            result.style.visibility = 'hidden';
+
+            pointer.style.transform = `rotateZ(${nextStatus.deg}deg)`;
+
+        })
+
+        pointer.addEventListener('transitionend', () => {
+
+            setTimeout(() => { // 等闪烁五下结束
+
+                onRotation = false;
+
+                lights.forEach(light => {
+                    light.className = 'light';
+                });
+
+                result.style.visibility = 'visible';
+
+            }, 500);
+
+            // 这里每100毫秒为闪烁一次
+
+        })
+    </script>
+
+</body>
+
+</html>
